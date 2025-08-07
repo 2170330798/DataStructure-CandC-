@@ -4,7 +4,7 @@
 
 //定义栈节点
 struct StackNode {
-    int data;
+    void *data;
     struct StackNode *next;
 };
 

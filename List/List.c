@@ -49,31 +49,67 @@ void visit_list(struct ListNode *List)
         printf("id: %d \n", ptr->id);
         ptr = ptr->next;
      }
+
+}
+
+//O(n)
+void order_insert_node(struct ListNode *List, int value)
+{    
+     if (List == NULL)
+         return ;  
+     int index = 0;
+     struct ListNode *ptr = List;
+     //The next ponit is not NULL.
+     while(ptr->next != NULL)
+         ptr = ptr->next;
+      struct ListNode *new_node = create_node(value);
+      ptr->next = new_node;
+      ptr = new_node;
+}
+
+//O(1)
+void reverse_insert_node(struct ListNode *List, int value)
+{    
+     if (List == NULL)
+         return ;  
+     struct ListNode *new_node = create_node(value);
+     new_node->next = List->next;
+     List->next = new_node;
+}
+//O(n)
+void delete_node(struct ListNode *List, int value)
+{
+     struct ListNode *cur = List->next, *pre = List;
+     while(cur != NULL && pre != NULL)
+     {
+         if (cur->id == value){
+              pre->next = cur->next;
+              free(cur);
+              cur = pre->next;
+              break;
+         }
+         cur = cur->next;
+         pre = pre->next;
+     }
 }
 
 int main()
 {
-    struct ListNode *List = init_list();
-    struct ListNode *ptr  = List;
-    int i = 0;
-    //顺序插入
-    // while(i<10) 
-    // {
-    //       struct ListNode *new_node = create_node(i);
-    //       ptr->next = new_node;
-    //       ptr = new_node;
-    //       i++;
-    // }
-    
-    //逆序插入
-    while(i<10) 
-    {
-          struct ListNode *new_node = create_node(i);
-          new_node->next = ptr->next;
-          ptr->next = new_node;
-          i++;
-    }
-    visit_list(List);
-    free_list(List);
-    return 0;
+     struct ListNode *List = init_list();
+     reverse_insert_node(List, 1);
+     reverse_insert_node(List, 2);
+     reverse_insert_node(List, 3);
+     reverse_insert_node(List, 4);
+     reverse_insert_node(List, 5);
+     reverse_insert_node(List, 6);
+     reverse_insert_node(List, 7);
+     
+     printf("========原始链表======\n");
+     visit_list(List);
+     printf("========修改后链表======\n");
+     delete_node(List, 4);
+     visit_list(List);
+
+     free_list(List);
+     return 0;
 }
