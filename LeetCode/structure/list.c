@@ -1,13 +1,13 @@
+#include "datastructure.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+//List
 struct ListNode {
-
-    int id;
+    int value;
     struct ListNode *next;
 };
 
-struct ListNode * init_list()
+struct ListNode* init_list()
 {
        struct ListNode *head = (struct ListNode*)malloc(sizeof(struct ListNode));
        if (head == NULL)
@@ -16,17 +16,17 @@ struct ListNode * init_list()
        return head;
 }
 
-struct ListNode * create_node(int id)
+struct ListNode * create_list_node(int value)
 {
        struct ListNode *new_node = (struct ListNode*)malloc(sizeof(struct ListNode));
        if (new_node == NULL)
             return NULL;
-       new_node->id = id;
+       new_node->value = value;
        new_node->next = NULL;
        return new_node;
 }
 
-void free_list(struct ListNode *List)
+void destory_list(struct ListNode *List)
 {
       struct ListNode *ptr = List,
                       *tmp = NULL;
@@ -46,7 +46,7 @@ void visit_list(struct ListNode *List)
      struct ListNode *ptr = List->next;
      while (ptr != NULL)
      {
-        printf("id: %d \n", ptr->id);
+        printf("id: %d \n", ptr->value);
         ptr = ptr->next;
      }
 
@@ -62,7 +62,7 @@ void order_insert_node(struct ListNode *List, int value)
      //The next ponit is not NULL.
      while(ptr->next != NULL)
          ptr = ptr->next;
-      struct ListNode *new_node = create_node(value);
+      struct ListNode *new_node = create_list_node(value);
       ptr->next = new_node;
       ptr = new_node;
 }
@@ -72,7 +72,7 @@ void reverse_insert_node(struct ListNode *List, int value)
 {    
      if (List == NULL)
          return ;  
-     struct ListNode *new_node = create_node(value);
+     struct ListNode *new_node = create_list_node(value);
      new_node->next = List->next;
      List->next = new_node;
 }
@@ -82,7 +82,7 @@ void delete_node(struct ListNode *List, int value)
      struct ListNode *cur = List->next, *pre = List;
      while(cur != NULL && pre != NULL)
      {
-         if (cur->id == value){
+         if (cur->value == value){
               pre->next = cur->next;
               free(cur);
               cur = pre->next;
@@ -93,23 +93,23 @@ void delete_node(struct ListNode *List, int value)
      }
 }
 
-int main()
-{
-     struct ListNode *List = init_list();
-     reverse_insert_node(List, 1);
-     reverse_insert_node(List, 2);
-     reverse_insert_node(List, 3);
-     reverse_insert_node(List, 4);
-     reverse_insert_node(List, 5);
-     reverse_insert_node(List, 6);
-     reverse_insert_node(List, 7);
+// int main()
+// {
+//      struct ListNode *List = init_list();
+//      reverse_insert_node(List, 1);
+//      reverse_insert_node(List, 2);
+//      reverse_insert_node(List, 3);
+//      reverse_insert_node(List, 4);
+//      reverse_insert_node(List, 5);
+//      reverse_insert_node(List, 6);
+//      reverse_insert_node(List, 7);
      
-     printf("========原始链表======\n");
-     visit_list(List);
-     printf("========修改后链表======\n");
-     delete_node(List, 4);
-     visit_list(List);
+//      printf("========原始链表======\n");
+//      visit_list(List);
+//      printf("========修改后链表======\n");
+//      delete_node(List, 4);
+//      visit_list(List);
 
-     free_list(List);
-     return 0;
-}
+//      free_list(List);
+//      return 0;
+// }

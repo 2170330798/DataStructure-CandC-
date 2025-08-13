@@ -1,18 +1,8 @@
+#include "datastructure.h"
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
-//定义栈节点
-struct StackNode {
-    void *data;
-    struct StackNode *next;
-};
-
-//定义链栈
-struct Stack {
-    struct StackNode *top;
-    int count;
-};
 
 //判断栈空
 bool isEmpty(struct Stack *stack)
@@ -34,7 +24,7 @@ struct Stack * initialization_stack()
 }
 
 //创建新节点
-struct StackNode * create_node(int value)
+struct StackNode * create_stack_node(int value)
 {
      struct StackNode *new_node = (struct StackNode*)malloc(sizeof(struct StackNode));
      if (new_node == NULL)
@@ -48,7 +38,7 @@ struct StackNode * create_node(int value)
 //入栈
 void push(struct Stack *stack, int value)
 {
-     struct StackNode *new_node = create_node(value);
+     struct StackNode *new_node = create_stack_node(value);
      new_node->next = stack->top;
      stack->top = new_node;
      stack->count++;
@@ -95,19 +85,19 @@ void destory_stack(struct Stack *stack)
     printf("Stack is destoried!\n");
 }
 
-int main()
-{
-    struct Stack *stack = initialization_stack();
-    push(stack, 1);
-    push(stack, 2);
-    push(stack, 3);
-    printf("--------Stack-------\n");
-    printf("\t[count: %d]\n", stack->count);
-    printf("---------1----------\n");
-    printf("\ttop->: %d |['pop()']\n" ,pop(stack));
-    printf("\ttop->: %d |['get_top()']\n" , get_top(stack));
-    printf("--------Stack-------\n");
-    printf("\t[count: %d]", stack->count);
-    destory_stack(stack);
-    return 0;
-}
+// int main()
+// {
+//     struct Stack *stack = initialization_stack();
+//     push(stack, 1);
+//     push(stack, 2);
+//     push(stack, 3);
+//     printf("--------Stack-------\n");
+//     printf("\t[count: %d]\n", stack->count);
+//     printf("---------1----------\n");
+//     printf("\ttop->: %d |['pop()']\n" ,pop(stack));
+//     printf("\ttop->: %d |['get_top()']\n" , get_top(stack));
+//     printf("--------Stack-------\n");
+//     printf("\t[count: %d]", stack->count);
+//     destory_stack(stack);
+//     return 0;
+// }
