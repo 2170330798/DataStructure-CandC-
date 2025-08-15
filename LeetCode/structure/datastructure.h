@@ -44,4 +44,23 @@ int pop(struct Stack *stack);
 int get_top(struct Stack *stack);
 //销毁栈
 void destory_stack(struct Stack *stack);
+
+
+#define MAX_SZIE 10
+struct HashNode
+{
+    int value;
+    int index;
+    int count;
+    struct HashNode* next;
+    
+}*HashTable[MAX_SZIE];
+
+int hash_code(int value);
+struct HashNode* create_hash_node(int key, int value);
+void insert_hash_node(int value);
+void destory_hash_table();
+bool contains(int key);
+void visit_hash_table();
+
 #endif // DATASTRUCTURE_H_INCLUDED
